@@ -1,0 +1,17 @@
+{
+    "name": "batte/mvc-composer",
+    "authors": [
+        {
+            "name": "max",
+            "email": "www.max.021persia@gmail.com"
+        }
+    ],
+    "autoload" : {
+
+        "psr-4" : {
+            "App\\" : "app/" , 
+            "Core\\": "core/" 
+        }
+    } , 
+    "require": {}
+}
