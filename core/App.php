@@ -6,7 +6,7 @@ use Exception;
 
 class App {
 
-    protected $container = [] ; 
+    protected static $container = [] ; 
 
     public static function bind (string $key , mixed $value):void {
         static::$container[$key] = $value ; 
