@@ -34,7 +34,7 @@ class View
         return ob_get_clean();
     }
 
-    protected static function renderLayout (?string $template , array $data , string $content):string {
+    protected static function renderLayout (?string $layout , array $data , string $content):string {
 
         if($template === null) {
             return $content ; 
