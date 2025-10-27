@@ -20,7 +20,7 @@ class Database
             $password = $config['password'] ?? null;
             $options = $config['options'] ?? null;
 
-            $this->pdo = new PDO($dsn, $username, $password, $options , [PDO::ATTR_ERRMODE , PDO::ERRMODE_EXCEPTION]);
+            $this->pdo = new PDO($dsn, $username, $password, [PDO::ATTR_ERRMODE , PDO::ERRMODE_EXCEPTION]);
         } catch (PDOException $e) {
             throw new Exception("Could not connect to the Database ");
         }

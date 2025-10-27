@@ -1,5 +1,5 @@
 CREATE Table IF NOT EXISTS users (
-    id INTERSECT PRIMARY KEY AUTOINCREMENT , 
+    id INTEGER PRIMARY KEY AUTOINCREMENT , 
     name TEXT NOT NULL , 
     email TEXT UNIQUE NOT NULL , 
     password TEXT NOT NULL , 
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS posts (
     content TEXT NOT NULL , 
     views INTEGER DEFAULT 0,
     user_id INTEGER NOT NULL ,  
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP 
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP  , 
     Foreign Key (user_id) REFERENCES users (id)
 ) ; 
 
@@ -25,8 +25,7 @@ CREATE TABLE IF NOT EXISTS comments (
     user_id INTEGER NOT NULL , 
     post_id INTEGER NOT NULL , 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP , 
-    Foreign Key (user_id) REFERENCES users (id)
+    Foreign Key (user_id) REFERENCES users (id) , 
     Foreign Key (post_id) REFERENCES posts (id)
 
-); 
-
+);
