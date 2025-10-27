@@ -6,7 +6,7 @@ use RuntimeException;
 
 class View
 {       
-    public function  render (string $template , array $data = [] , string $layout = null):string {
+    public static function render (string $template , array $data = [] , string $layout = null):string {
 
         $content = static::renderTemplate(
             $template , 
