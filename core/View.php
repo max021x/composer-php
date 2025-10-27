@@ -36,13 +36,13 @@ class View
 
     protected static function renderLayout (?string $layout , array $data , string $content):string {
 
-        if($template === null) {
+        if($layout === null) {
             return $content ; 
         }
 
         extract([...$data , 'content' => $content]) ; 
 
-        $path = "../app/Views/$template.php" ; 
+        $path = "../app/Views/$layout.php" ; 
 
         if(!file_exists($path)) {
             throw new RuntimeException("Error : Layout file not found: $path") ; 
