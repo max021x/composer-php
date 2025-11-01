@@ -4,8 +4,12 @@ namespace Core;
 
 class Errorhandler
 {
-    public static function handleException(\Throwable $exception)
-    {
+    public static function handleException(\Throwable $exception):void
+    {   
+
+        static::logError($exception) ;
+
+
         if (php_sapi_name() === 'cli') {
             static::renderCliError($exception);
         } else {
@@ -13,7 +17,16 @@ class Errorhandler
         }
     }
 
-    private function renderCliError(\Throwable $exception)
+    private static function logError (\Throwable $exception):void {
+        $logMessage = static::formatErrorMessage(
+            $exception , 
+            "[%s] Error %s : %s in %s on line %d \n " 
+        ) ; 
+
+        error_log($logMessage , 3 , __DIR__ . '/../logs/error.log') ; 
+    }
+
+    private static function renderCliError(\Throwable $exception):void
     {
         $isDebug = App::get('config')['app']['debug'] ?? false;
 
@@ -41,7 +54,7 @@ class Errorhandler
     public static function handleError($level, $message, $file, $line)
     {
         $exception = new \ErrorException($message, 0, $level, $file, $line);
-        self::handleException();
+        self::handleException($exception);
     }
 
     private static function formatErrorMessage(\Throwable $exception, string $format): string
