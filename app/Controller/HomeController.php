@@ -7,7 +7,7 @@ use Core\View ;
 class HomeController {
 
     public function index () {
-       return View::render(template:'home/index' , data:['message' => 'Hello'] , layout:'layouts/main') ; 
+       return View::render(template:'Home/index.php' , data:['message' => 'Hello' , 'title' => 'Home'] , layout:'layouts/main.php') ; 
     }
 
 }

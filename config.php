@@ -7,7 +7,7 @@ return [
     ] , 
     'database' => [
         'driver' => 'sqlite' , 
-        'dbname' => 'database/blog.sqlite' ,
+        'dbname' => __DIR__ . '/database/blog.sqlite' ,
         // 'host' => 'localhost' 
         // 'port' => '3306' , 
         // 'charset' => 'utf8' 

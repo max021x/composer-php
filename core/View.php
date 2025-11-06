@@ -5,28 +5,23 @@ namespace Core;
 use RuntimeException;
 
 class View
-{       
-    public static function render (string $template , array $data = [] , string $layout = null):string {
+{
 
-        $content = static::renderTemplate(
-            $template , 
-            $data 
-        ) ; 
 
-        return static::renderLayout($layout , $data , $content) ; 
-
+    public static function render(string $template, array $data = [], string $layout = null): string
+    {
+        $content = static::renderTemplate($template, $data);
+        return static::renderLayout($layout, $data, $content);
     }
 
-
-    protected static function renderTemplate(string $template, array $data): string
+    private static function renderTemplate(string $template, array $data): string
     {
-
         extract($data);
 
-        $path = "../app/Views/$template.php";
+        $path = "../app/Views/$template";
 
         if (!file_exists($path)) {
-            throw new RuntimeException("Error: Template file not found: $path");
+            return throw new RuntimeException("Error File Does Not Exists : $path");
         }
 
         ob_start();
@@ -34,23 +29,20 @@ class View
         return ob_get_clean();
     }
 
-    protected static function renderLayout (?string $layout , array $data , string $content):string {
-
-        if($layout === null) {
-            return $content ; 
+    private static function renderLayout(string $template, array $data, string $content)
+    {
+        if ($content !== null) {
+            extract([...$data, 'content' => $content]);
         }
 
-        extract([...$data , 'content' => $content]) ; 
+        $path = "../app/Views/$template";
 
-        $path = "../app/Views/$layout.php" ; 
-
-        if(!file_exists($path)) {
-            throw new RuntimeException("Error : Layout file not found: $path") ; 
+        if (!file_exists($path)) {
+            return throw new RuntimeException("Error File Does Not Exists : $path");
         }
 
-        ob_start() ; 
-        require $path ; 
-        return ob_get_clean() ; 
-
+        ob_start();
+        require $path;
+        return ob_get_clean();
     }
 }
