@@ -2,8 +2,17 @@
 
 namespace Core;
 
-class ErrorHandler {
-  public static function handleException(\Throwable $exception) {
+class ErrorHandler
+{
+
+  public static function handleError($level, $message, $file, $line)
+  {
+    $exception = new \ErrorException($message, 0, $level, $file, $line);
+    self::handleException($exception);
+  }
+
+  public static function handleException(\Throwable $exception)
+  {
     // 1) Log the error
     static::logError($exception);
     // php bin/load_schema.php
@@ -14,7 +23,8 @@ class ErrorHandler {
     }
   }
 
-  private static function renderCliError(\Throwable $exception): void {
+  private static function renderCliError(\Throwable $exception): void
+  {
     $isDebug = App::get('config')['app']['debug'] ?? false;
 
     if ($isDebug) {
@@ -35,7 +45,8 @@ class ErrorHandler {
     exit(1);
   }
 
-  private static function renderErrorPage(\Throwable $exception): void {
+  private static function renderErrorPage(\Throwable $exception): void
+  {
     $isDebug = App::get('config')['app']['debug'] ?? false;
 
     if ($isDebug) {
@@ -50,15 +61,17 @@ class ErrorHandler {
     }
 
     http_response_code(500);
-    echo View::render('errors/500', [
+    echo View::render('errors/500.php', [
       'errorMessage' => $errorMessage,
       'trace' => $trace,
-      'isDebug' => $isDebug
-    ], 'layouts/main');
+      'isDebug' => $isDebug,
+      'title' => 'Error',
+    ], 'layouts/main.php');
     exit();
   }
 
-  private static function logError(\Throwable $exception): void {
+  private static function logError(\Throwable $exception): void
+  {
     $logMessage = static::formatErrorMessage(
       $exception,
       "[%s] Error: %s: %s in %s on line %d\n"
@@ -66,12 +79,8 @@ class ErrorHandler {
     error_log($logMessage, 3, __DIR__ . '/../logs/error.log');
   }
 
-  public static function handleError($level, $message, $file, $line) {
-    $exception = new \ErrorException($message, 0, $level, $file, $line);
-    self::handleException($exception);
-  }
-
-  private static function formatErrorMessage(\Throwable $exception, string $format): string {
+  private static function formatErrorMessage(\Throwable $exception, string $format): string
+  {
     return sprintf(
       $format,
       date('Y-m-d H:i:s'),
