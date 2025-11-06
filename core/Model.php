@@ -12,7 +12,7 @@ class Model
     public static function all(): array
     {
         $db = App::get('database');
-        $result = $db->query("SELECT * FROM"  . static::$table)->fetchAll(PDO::FETCH_ASSOC);
+        $result = $db->query("SELECT * FROM "  . static::$table)->fetchAll(PDO::FETCH_ASSOC);
         return array_map([static::class, 'createFromArray'], $result);
     }
 

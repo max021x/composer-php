@@ -6,12 +6,15 @@
             "email": "www.max.021persia@gmail.com"
         }
     ],
-    "autoload" : {
-
-        "psr-4" : {
-            "App\\" : "app/" , 
-            "Core\\": "core/" 
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Core\\": "core/"
         }
-    } , 
-    "require": {}
+    },
+    "require": {},
+    "scripts": {
+        "schema:load": "php bin/schema_load.php",
+        "schema:fixtures": "php bin/schema_fixtures.php"
+    }
 }
