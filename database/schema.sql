@@ -3,7 +3,7 @@ CREATE Table IF NOT EXISTS users (
     name TEXT NOT NULL , 
     email TEXT UNIQUE NOT NULL , 
     password TEXT NOT NULL , 
-    roll TEXT NOT NULL DEFAULT 'users' , 
+    role TEXT NOT NULL DEFAULT 'users' , 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP 
 ) ; 
 
