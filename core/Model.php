@@ -19,7 +19,7 @@ class Model
     public static function find(mixed $id): static | null
     {
         $db = App::get('database');
-        $result = $db->query("SELECT * FROM"  . static::$table . "WHERE id = ?", [$id])->fetchAll(PDO::FETCH_ASSOC);
+        $result = $db->query("SELECT * FROM "  . static::$table . " WHERE id = ?", [$id])->fetchAll(PDO::FETCH_ASSOC);
         return $result ? static::createFromArray($result) : null;
     }
 
@@ -31,7 +31,7 @@ class Model
 
         $placeholder = implode(", ", array_fill(0, count($data), "?"));
 
-        $sql = "INSERT INTO " . static::$table . " ($columns) VALUES($placeholders)";
+        $sql = "INSERT INTO " . static::$table . " ($columns) VALUES($placeholder)";
 
         $db->query($sql, array_values($data));
 
