@@ -20,7 +20,7 @@ class Database
             $password = $config['password'] ?? null;
             $options = $config['options'] ?? null;
 
-            $this->pdo = new PDO($dsn, $username, $password, [PDO::ATTR_ERRMODE , PDO::ERRMODE_EXCEPTION]);
+            $this->pdo = new PDO($dsn, $username, $password, [PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION]);
         } catch (PDOException $e) {
             throw new Exception("Could not connect to the Database ");
         }
@@ -46,20 +46,21 @@ class Database
         return $stmt;
     }
 
-    public function fetchAll(string $sql, array $params = []): array
+    public function fetchAll(string $sql, array $params = [], ?string $classname = null): array
     {
-        return $this->query($sql, $params)->fetchAll(PDO::FETCH_OBJ);
-    }
-    
-    public function fetch(string $sql, array $params = []):object|false
-    {
-        return $this->query($sql, $params)->fetch(PDO::FETCH_OBJ);
+        $stmt = $this->query($sql, $params);
+        return $classname ? $stmt->fetchAll(PDO::FETCH_CLASS, $classname) : $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function lastInsertId():string|false
+    public function fetch(string $sql, array $params = [], ?string $classname = null): mixed
     {
-        return $this->pdo->lastInsertId()  ;
+        $stmt = $this->query($sql, $params); 
+        $stmt->setFetchMode($classname ? PDO::FETCH_CLASS : PDO::FETCH_ASSOC , $classname);
+        return $stmt->fetch() ; 
     }
 
-    
+    public function lastInsertId(): string|false
+    {
+        return $this->pdo->lastInsertId();
+    }
 }

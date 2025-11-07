@@ -12,15 +12,13 @@ class Model
     public static function all(): array
     {
         $db = App::get('database');
-        $result = $db->query("SELECT * FROM "  . static::$table)->fetchAll(PDO::FETCH_ASSOC);
-        return array_map([static::class, 'createFromArray'], $result);
+        return $db->fetchAll("SELECT * FROM "  . static::$table , [] , static::class) ; 
     }
 
-    public static function find(mixed $id): static | null
+    public static function find(mixed $id)
     {
         $db = App::get('database');
-        $result = $db->query("SELECT * FROM "  . static::$table . " WHERE id = ?", [$id])->fetchAll(PDO::FETCH_ASSOC);
-        return $result ? static::createFromArray($result) : null;
+        return $db->fetch("SELECT * FROM "  . static::$table . " WHERE id = ?", [$id] , static::class) ; 
     }
 
     public static function  create(array $data): static
