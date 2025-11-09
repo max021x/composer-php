@@ -13,8 +13,8 @@
         <header>
             <nav>
                 <li><a href="/">Home</a></li>
-                <li><a href="/contact">Contact Form</a></li>
-                <li><a href="/guestbook">Guestbook</a></li>
+                <li><a href="/posts">Posts</a></li>
+                <li><a href="/contact">Contact</a></li>
             </nav>
         </header>
 
