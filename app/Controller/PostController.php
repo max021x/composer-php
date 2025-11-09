@@ -12,7 +12,7 @@ class PostController
     public function index()
     {
         $search = $_GET['search'] ?? '';
-        $posts = Post::getRecent(5 , $search);
+    $posts = Post::getRecent(5 , $search);
         return View::render(
             template: 'Posts/index.php',
             data: ['posts' => $posts, 'search' => $search],
