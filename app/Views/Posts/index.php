@@ -7,4 +7,5 @@
         <button>Search</button>
     </form>
     <?=partial('_posts.php' , ['posts' => $posts]) ?>
+    <?=partial('_pagination.php' , ['currentPage' => $currentPage , 'totalPages' => $totalPages]) ?>
 </div>

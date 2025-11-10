@@ -12,10 +12,20 @@ class PostController
     public function index()
     {
         $search = $_GET['search'] ?? '';
-    $posts = Post::getRecent(5 , $search);
+        $page = $_GET['page'] ?? 1;
+        $limit = 1;
+
+        $posts = Post::getRecent($limit, $page, $search);
+        $total = Post::count($search);
+
         return View::render(
             template: 'Posts/index.php',
-            data: ['posts' => $posts, 'search' => $search],
+            data: [
+                'posts' => $posts,
+                'search' => $search,
+                'currentPage' => $page,
+                'totalPages' => ceil($total / $limit)
+            ],
             layout: 'layouts/main.php'
         );
     }

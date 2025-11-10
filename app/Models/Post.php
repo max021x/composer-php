@@ -17,7 +17,7 @@ class Post extends Model
     public $created_at;
 
 
-    public static function getRecent(?int $limit = null, ?string $search = null)
+    public static function getRecent(?int $limit = null, ?int $page = null, ?string $search = null)
     {
         $db = App::get('database');
         $query = "SELECT * FROM " . static::$table . " ";
@@ -34,6 +34,12 @@ class Post extends Model
             $params[] = $limit;
         }
 
+        if ($page !== null && $limit !== null) {
+            $offset = ($page - 1) * $limit;
+            $query .= " OFFSET ?" ; 
+            $params[] = $offset ; 
+        }
+
         return $db->fetchAll(
             $query,
             $params,
@@ -41,7 +47,26 @@ class Post extends Model
         );
     }
 
+    public static function count(?string $search = null):int
+    {
+        $db = App::get('database');
+        $query = "SELECT COUNT(*) FROM " . static::$table . " ";
+        
+        $params = [];
+        if ($search !== null) {
+            $query .= "WHERE title LIKE ? OR  content LIKE ?";
+            $params = ["%$search%", "$search$"];
+        }
 
+        $query .=  " ORDER BY created_at DESC ";
+
+        return (int) $db->query(
+            $query,
+            $params,
+        )->fetchColumn();
+    }
+
+    
     public static function incrementViews($id): void
     {
         $db = App::get('database');
