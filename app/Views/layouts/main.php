@@ -14,7 +14,9 @@
             <nav>
                 <li><a href="/">Home</a></li>
                 <li><a href="/posts">Posts</a></li>
-                <li><a href="/contact">Contact</a></li>
+                <?php if ($user) : ?>
+                    <a href="/logout">Logout (<?=$user->email ?>)</a>
+                <?php endif ?>
             </nav>
         </header>
 
