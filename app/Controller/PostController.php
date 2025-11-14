@@ -19,7 +19,7 @@ class PostController
         $total = Post::count($search);
 
         return View::render(
-            template: 'Posts/index.php',
+            template: 'posts/index.php',
             data: [
                 'posts' => $posts,
                 'search' => $search,
@@ -38,6 +38,6 @@ class PostController
         }
         $comments = Comment::forPost($id);
         Post::incrementViews($id);
-        return View::render(template: 'Posts/show.php', data: ['post' => $post, 'comments' => $comments], layout: 'layouts/main.php');
+        return View::render(template: 'posts/show.php', data: ['post' => $post, 'comments' => $comments], layout: 'layouts/main.php');
     }
 }

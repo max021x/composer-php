@@ -37,6 +37,13 @@ class Router
         exit;
     }
 
+    public static function redirect (string $uri):void {
+
+        header("Location: $uri") ; 
+        exit() ; 
+    }
+    
+    
     public function findRoute(string $uri, string $method): ?array
     {
         foreach ($this->routes as $route) {
@@ -80,4 +87,5 @@ class Router
 
         return (new $controllerClass)->$action(...$params);
     }
+
 }

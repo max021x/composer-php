@@ -2,6 +2,8 @@
 
 require_once '../bootstrap.php' ; 
 
+session_start() ; 
+
 use Core\Router ; 
 $router = new Router ; 
 

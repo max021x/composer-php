@@ -1,5 +1,4 @@
 <div>
-    <h1>Welcome To My Weblog</h1>
     <h2>All Posts</h2>
 
     <form action="" method="GET">

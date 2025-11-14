@@ -12,7 +12,7 @@ class HomeController
     {
         $posts = Post::getRecent(5); 
         return View::render(
-            template: 'Home/index.php',
+            template: 'home/index.php',
             data: ['posts' => $posts],
             layout: 'layouts/main.php'
         );

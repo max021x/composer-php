@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Core\App;
 use Core\Model;
 
 class User extends Model
 {
+    protected static $table = 'users';
+
     public $id;
     public $name;
     public $email;
@@ -13,5 +16,16 @@ class User extends Model
     public $role;
     public $created_at;
 
-    protected static $table = 'users';
+
+    public static function findByEmail(string $email):?User
+    {
+        $db = App::get('database');
+        $result  = $db->fetch(
+            "SELECT * FROM users WHERE email = ?",
+            [$email],
+            static::class
+        );
+
+        return  $result ? $result : null ; 
+    }
 }
